@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lucro com IA - O Site Que Vai Surpreender Programadores</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+    html, body {
+      margin: 0; padding: 0; overflow: hidden; height: 100%;
+      background: radial-gradient(ellipse at center, #000000 0%, #0a0a0a 100%);
+      font-family: 'Orbitron', sans-serif;
+      color: #e0e0e0;
+      user-select: none;
+    }
+    #container {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+      pointer-events: none;
+    }
+    #content {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 10;
+      max-width: 700px;
+      pointer-events: auto;
+      padding: 20px;
+      background: rgba(0,0,0,0.6);
+      border-radius: 15px;
+      box-shadow:
+        0 0 20px #999999aa,
+        0 0 40px #bbbbbb88;
+    }
+    h1 {
+      font-size: 4.5vw;
+      text-shadow:
+        0 0 10px #999999,
+        0 0 20px #bbbbbb,
+        0 0 30px #cccccc,
+        0 0 40px #ddddddcc;
+      margin-bottom: 0.3em;
+      transition: all 0.3s ease;
+    }
+    p.description {
+      font-size: 1.5vw;
+      margin-bottom: 2em;
+      color: #cccccccc;
+      text-shadow: 0 0 5px #666666aa;
+      line-height: 1.4;
+      font-weight: 500;
+    }
+    button {
+      padding: 22px 70px;
+      font-size: 1.7vw;
+      font-weight: 900;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(90deg, #ff416c, #ff4b2b);
+      color: white;
+      box-shadow:
+        0 0 20px #ff416c,
+        0 0 50px #ff4b2b;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: visible;
+      z-index: 20;
+      user-select:none;
+    }
+    button:hover {
+      transform: scale(1.15);
+      box-shadow:
+        0 0 40px #ff416c,
+        0 0 80px #ff4b2b,
+        0 0 100px #ff5a3b;
+    }
+
+    /* Botão fogo animado */
+    #fire {
+      position: absolute;
+      bottom: 110%;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+      width: 130px;
+      height: 90px;
+      opacity: 0;
+      filter: drop-shadow(0 0 15px #ff5c1e);
+      mix-blend-mode: screen;
+      animation: flicker 1s infinite;
+      z-index: 19;
+      user-select:none;
+    }
+    #fire .flame {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 25px;
+      height: 70px;
+      background: radial-gradient(circle at 50% 70%, #ffaf3f, transparent 80%);
+      border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
+      transform-origin: bottom center;
+      animation: flameMove 1s ease-in-out infinite;
+      filter: drop-shadow(0 0 15px #ff7f00);
+      margin-left: -12.5px;
+    }
+    #fire .flame:nth-child(2) {
+      left: 40%;
+      width: 20px;
+      height: 55px;
+      animation-duration: 1.3s;
+      background: radial-gradient(circle at 50% 70%, #ffcf5f, transparent 85%);
+      filter: drop-shadow(0 0 12px #ff9f20);
+      animation-delay: 0.3s;
+      margin-left: 0;
+    }
+    #fire .flame:nth-child(3) {
+      left: 60%;
+      width: 23px;
+      height: 60px;
+      animation-duration: 0.8s;
+      background: radial-gradient(circle at 50% 70%, #ffbf4f, transparent 80%);
+      filter: drop-shadow(0 0 13px #ff8f10);
+      animation-delay: 0.5s;
+      margin-left: -23px;
+    }
+    @keyframes flameMove {
+      0%, 100% {transform: translateY(0) scale(1); opacity: 1;}
+      50% {transform: translateY(-10px) scale(1.05); opacity: 0.9;}
+    }
+    @keyframes flicker {
+      0%, 100% {opacity: 0.8;}
+      50% {opacity: 1;}
+    }
+
+    /* Vídeo horizontal pequeno e responsivo */
+    .video-container {
+      position: relative;
+      width: 320px;
+      max-width: 80vw;
+      padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+      margin: 30px auto 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 20px #ff416cbb;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 12px;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 8vw;
+      }
+      p.description {
+        font-size: 4vw;
+      }
+      button {
+        font-size: 4vw;
+        padding: 16px 40px;
+      }
+      .video-container {
+        width: 90vw;
+        padding-bottom: 56.25%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="container"></div>
+
+<div id="content" role="main" aria-label="Conteúdo principal">
+  <h1>Lucro com IA</h1>
+  <p class="description">
+    Transforme seu celular numa máquina de vendas com inteligência artificial.<br>
+    O futuro das vendas começa aqui.
+  </p>
+  <button id="buyBtn" aria-label="Comprar ebook Lucro com IA">QUERO COMEÇAR AGORA</button>
+  <div id="fire" aria-hidden="true">
+    <div class="flame"></div>
+    <div class="flame"></div>
+    <div class="flame"></div>
+  </div>
+
+  <div class="video-container" aria-label="Vídeo do YouTube Lucro com IA">
+    <iframe
+      src="https://www.youtube.com/embed/fVmO3cGlxzs"
+      title="Vídeo Lucro com IA"
+      allowfullscreen
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      loading="lazy"
+    ></iframe>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.min.js"></script>
+<script>
+  // Fundo de partículas 3D com Three.js
+  let scene = new THREE.Scene();
+  let camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 1, 1000);
+  let renderer = new THREE.WebGLRenderer({antialias: true, alpha:true});
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0x000000, 0); // transparente
+  document.getElementById('container').appendChild(renderer.domElement);
+
+  camera.position.z = 350;
+
+  let particlesCount = 1500;
+  let positions = new Float32Array(particlesCount * 3);
+  for(let i=0; i < particlesCount; i++) {
+    positions[i*3] = (Math.random() - 0.5) * 1200;
+    positions[i*3 +1] = (Math.random() - 0.5) * 1200;
+    positions[i*3 +2] = (Math.random() - 0.5) * 1200;
+  }
+
+  let geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions,3));
+
+  let material = new THREE.PointsMaterial({
+    color: 0xe0e0e0,
+    size: 3,
+    sizeAttenuation: true,
+    transparent: true,
+    opacity: 0.75,
+  });
+
+  let particles = new THREE.Points(geometry, material);
+  scene.add(particles);
+
+  let mouseX = 0, mouseY = 0;
+  let windowHalfX = window.innerWidth/2;
+  let windowHalfY = window.innerHeight/2;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = (e.clientX - windowHalfX);
+    mouseY = (e.clientY - windowHalfY);
+  });
+
+  window.addEventListener('resize', () => {
+    windowHalfX = window.innerWidth/2;
+    windowHalfY = window.innerHeight/2;
+    camera.aspect = window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  // Botão fogo que reage ao mouse
+  const buyBtn = document.getElementById('buyBtn');
+  const fire = document.getElementById('fire');
+  const hotmartLink = "https://pay.hotmart.com/M100804445W";
+
+  function updateFire(e) {
+    const rect = buyBtn.getBoundingClientRect();
+    const centerX = rect.left + rect.width/2;
+    const centerY = rect.top + rect.height/2;
+
+    const distX = e.clientX - centerX;
+    const distY = e.clientY - centerY;
+    const distance = Math.sqrt(distX*distX + distY*distY);
+
+    fire.style.left = (centerX) + 'px';
+    fire.style.top = (centerY - rect.height) + 'px';
+
+    if(distance < 200) {
+      let intensity = 1 - distance/200;
+      fire.style.opacity = intensity;
+      fire.style.transform = `translateX(-50%) scale(${0.8 + intensity*0.6})`;
+      buyBtn.style.boxShadow = `0 0 ${30 + intensity*50}px #ff416c, 0 0 ${40 + intensity*70}px #ff4b2b`;
+      buyBtn.style.transform = `scale(${1 + intensity*0.15})`;
+    } else {
+      fire.style.opacity = 0;
+      buyBtn.style.boxShadow = `0 0 20px #ff416c, 0 0 50px #ff4b2b`;
+      buyBtn.style.transform = 'scale(1)';
+    }
+  }
+
+  document.addEventListener('mousemove', updateFire);
+
+  // Animação partículas
+  function animate() {
+    requestAnimationFrame(animate);
+    particles.rotation.y += 0.0015;
+    particles.rotation.x += 0.001;
+    particles.position.x += (mouseX * 0.0003 - particles.position.x) * 0.05;
+    particles.position.y += (-mouseY * 0.0003 - particles.position.y) * 0.05;
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // Abrir link ao clicar no botão
+  buyBtn.addEventListener('click', () => {
+    window.open(hotmartLink, "_blank", "noopener");
+  });
+</script>
+
+</body>
+</html>
